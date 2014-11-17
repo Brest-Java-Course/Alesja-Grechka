@@ -1,4 +1,4 @@
-package com.epam.brest.courses.domain;
+package com.epam.brest.taskproject.domain;
 
 import java.util.Date;
 

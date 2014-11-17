@@ -1,4 +1,6 @@
-package com.epam.brest.courses.domain;
+package com.epam.brest.taskproject.domain;
+
+import java.util.List;
 
 /**
  * Created by alesya on 17.11.14.
