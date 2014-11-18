@@ -4,22 +4,22 @@ package com.epam.brest.taskproject.domain;
  * Created by alesya on 17.11.14.
  */
 public class TransportSummary {
-    private Transport transport;
+    private Automobile transport;
     private Double sumDistance;
 
     public TransportSummary() {
     }
 
-    public TransportSummary(Transport transport, Double sumDistance) {
+    public TransportSummary(Automobile transport, Double sumDistance) {
         this.transport = transport;
         this.sumDistance = sumDistance;
     }
 
-    public Transport getTransport() {
+    public Automobile getTransport() {
         return transport;
     }
 
-    public void setTransport(Transport transport) {
+    public void setTransport(Automobile transport) {
         this.transport = transport;
     }
 

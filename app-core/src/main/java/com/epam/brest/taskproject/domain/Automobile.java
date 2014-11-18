@@ -1,20 +1,18 @@
 package com.epam.brest.taskproject.domain;
 
-import java.util.List;
-
 /**
  * Created by alesya on 17.11.14.
  */
-public class Transport {
+public class Automobile {
     private Long id;
     private String make;
     private String number;
     private Double fuelRate;
 
-    public Transport() {
+    public Automobile() {
     }
 
-    public Transport(Long id, String make, String number, Double fuelRate) {
+    public Automobile(Long id, String make, String number, Double fuelRate) {
         this.id = id;
         this.make = make;
         this.number = number;
@@ -58,7 +56,7 @@ public class Transport {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Transport transport = (Transport) o;
+        Automobile transport = (Automobile) o;
 
         if (fuelRate != null ? !fuelRate.equals(transport.fuelRate) : transport.fuelRate != null) return false;
         if (id != null ? !id.equals(transport.id) : transport.id != null) return false;
@@ -70,7 +68,7 @@ public class Transport {
 
     @Override
     public String toString() {
-        return "Transport: {" +
+        return "Automobile: {" +
                 "id=" + id +
                 ", make='" + make +
                 ", number='" + number +

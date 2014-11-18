@@ -8,17 +8,17 @@ import java.util.Date;
 public class Journey {
     private Long id;
     private String originDestination;
-    private Transport transport;
+    private Automobile automobile;
     private Double distance;
     private Date date;
 
     public Journey() {
     }
 
-    public Journey(Long id, String originDestination, Transport transport, Double distance, Date date) {
+    public Journey(Long id, String originDestination, Automobile transport, Double distance, Date date) {
         this.id = id;
         this.originDestination = originDestination;
-        this.transport = transport;
+        this.automobile = transport;
         this.distance = distance;
         this.date = date;
     }
@@ -39,12 +39,12 @@ public class Journey {
         this.originDestination = originDestination;
     }
 
-    public Transport getTransport() {
-        return transport;
+    public Automobile getAutomobile() {
+        return automobile;
     }
 
-    public void setTransport(Transport transport) {
-        this.transport = transport;
+    public void setAutomobile(Automobile automobile) {
+        this.automobile = automobile;
     }
 
     public Double getDistance() {
@@ -68,7 +68,7 @@ public class Journey {
         return "Journey{" +
                 "id=" + id +
                 ", originDestination='" + originDestination + '\'' +
-                ", transport=" + transport +
+                ", automobile=" + automobile +
                 ", distance=" + distance +
                 ", date=" + date +
                 '}';

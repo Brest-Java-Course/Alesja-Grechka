@@ -19,7 +19,12 @@
         <jackson.databind-version>2.4.3</jackson.databind-version>
     </properties>
 
-
-
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
