@@ -36,7 +36,6 @@ public class TestAutomobile {
         Automobile atomobile2 = new Automobile(1L,"audi","0013ih1",6.2);
         Automobile atomobile3 = new Automobile(1L,"audi","0014ih1",6.2);
 
-
         assertEquals(automobile, automobile);
         assertEquals(atomobile1,atomobile2);
 

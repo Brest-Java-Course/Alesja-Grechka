@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS AUTOMOBILE (
+automobileid BIGINT IDENTITY,
+make VARCHAR(255) NOT NULL,
+number VARCHAR(10) NOT NULL,
+fuelrate DECIMAL(4,2) NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS JOURNEY (
+journeyid BIGINT IDENTITY,
+automobileid BIGINT,
+origin_destination VARCHAR(255) NOT NULL,
+journey_date DATE NOT NULL,
+distance DECIMAL(10,2) NOT NULL,
+CONSTRAINT journey_fk FOREIGN KEY (automobileid) REFERENCES AUTOMOBILE (automobileid)
+);

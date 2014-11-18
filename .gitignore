@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .ditignore
 **/.idea
 **/*.iml
@@ -7,8 +6,4 @@
 **/*.class
 **/*.log
 **/target/
-=======
-*~
-target
-.idea
->>>>>>> 9c32de9426d603a3301560f688d5cee5f80762aa
+
