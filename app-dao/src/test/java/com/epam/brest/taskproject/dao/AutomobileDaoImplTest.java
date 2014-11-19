@@ -46,15 +46,15 @@ public class AutomobileDaoImplTest {
         Automobile automobile = automobileDao.getAutomobileById(id);
         assertNotNull(automobile);
         assertEquals(id, automobile.getId() );
-
     }
 
     @Test
     public void removeAutomobileTest(){
         List<Automobile> automobiles = automobileDao.getAllAutomobiles();
         int sizeBefore = automobiles.size();
-        automobileDao.removeAutomobile(1L);
+        automobileDao.removeAutomobile(2L);
         automobiles = automobileDao.getAllAutomobiles();
+
         assertEquals(sizeBefore, automobiles.size()+1);
     }
 

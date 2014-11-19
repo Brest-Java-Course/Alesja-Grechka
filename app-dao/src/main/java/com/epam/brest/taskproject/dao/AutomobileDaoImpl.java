@@ -50,8 +50,8 @@ public class AutomobileDaoImpl implements AutomobileDao {
     @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${remove_automobile_path}')).inputStream)}")
     public String removeAutomobile;
 
-    @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${remove_journey_path}')).inputStream)}")
-    public String removeJourney;
+    @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${remove_journeys_with_automobileid_path}')).inputStream)}")
+    public String removeJourneyWithAutomobileId;
 
     @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${update_automobile_path}')).inputStream)}")
     public String updateAutomobile;
@@ -94,7 +94,7 @@ public class AutomobileDaoImpl implements AutomobileDao {
     @Override
     public void removeAutomobile(Long id) {
         LOGGER.debug("removeAutomobile({})", id);
-        jdbcTemplate.update(removeJourney,id);
+        jdbcTemplate.update(removeJourneyWithAutomobileId,id);
         jdbcTemplate.update(removeAutomobile,id);
     }
 

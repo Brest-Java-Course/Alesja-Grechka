@@ -122,8 +122,8 @@ public class JourneyDaoImplTest {
 
     @Test
     public void getJourneysOfAutomobileBetweenDatesTets() throws ParseException {
-        Date date1 = SDF.parse("2014-01-01");
-        Date date2 = SDF.parse("2014-10-01");
+        Date date1 = SDF.parse("2013-01-01");
+        Date date2 = SDF.parse("2015-10-01");
         Long automobileId = 1L;
 
         List<Journey> journeys = journeyDao.getJourneysOfAutomobile(automobileId, date1, date2);
