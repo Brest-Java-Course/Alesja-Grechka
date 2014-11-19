@@ -7,10 +7,10 @@ import java.util.Date;
  */
 public class Journey {
     private Long id;
-    private String originDestination;
     private Automobile automobile;
-    private Double distance;
     private Date date;
+    private String originDestination;
+    private Double distance;
 
     public Journey() {
     }
