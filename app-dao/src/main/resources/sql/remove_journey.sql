@@ -1,1 +1,1 @@
-delete from JOURNEY WHERE automobileid = ?
+delete from JOURNEY WHERE journeyid = ?

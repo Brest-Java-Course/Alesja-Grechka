@@ -15,12 +15,12 @@ public class Journey {
     public Journey() {
     }
 
-    public Journey(Long id, String originDestination, Automobile transport, Double distance, Date date) {
+    public Journey(Long id, Automobile automobile, Date date, String originDestination, Double distance) {
         this.id = id;
-        this.originDestination = originDestination;
-        this.automobile = transport;
-        this.distance = distance;
+        this.automobile = automobile;
         this.date = date;
+        this.originDestination = originDestination;
+        this.distance = distance;
     }
 
     public Long getId() {
@@ -31,28 +31,12 @@ public class Journey {
         this.id = id;
     }
 
-    public String getOriginDestination() {
-        return originDestination;
-    }
-
-    public void setOriginDestination(String originDestination) {
-        this.originDestination = originDestination;
-    }
-
     public Automobile getAutomobile() {
         return automobile;
     }
 
     public void setAutomobile(Automobile automobile) {
         this.automobile = automobile;
-    }
-
-    public Double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Double distance) {
-        this.distance = distance;
     }
 
     public Date getDate() {
@@ -63,16 +47,38 @@ public class Journey {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "Journey{" +
-                "id=" + id +
-                ", originDestination='" + originDestination + '\'' +
-                ", automobile=" + automobile +
-                ", distance=" + distance +
-                ", date=" + date +
-                '}';
+    public String getOriginDestination() {
+        return originDestination;
     }
 
+    public void setOriginDestination(String originDestination) {
+        this.originDestination = originDestination;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Journey journey = (Journey) o;
+
+        if (automobile != null ? !automobile.equals(journey.automobile) : journey.automobile != null) return false;
+        if (date != null ? !date.equals(journey.date) : journey.date != null) return false;
+        if (distance != null ? !distance.equals(journey.distance) : journey.distance != null) return false;
+        if (id != null ? !id.equals(journey.id) : journey.id != null) return false;
+        if (originDestination != null ? !originDestination.equals(journey.originDestination) : journey.originDestination != null)
+            return false;
+
+        return true;
+    }
 
 }
+

@@ -40,8 +40,21 @@ public class AutomobileDaoImpl implements AutomobileDao {
 
     @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${add_automobile_path}')).inputStream)}")
     public String addAutomobile;
+
     @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${get_all_automobiles_path}')).inputStream)}")
     public String getAllAutomobiles;
+
+    @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${get_automobile_by_id_path}')).inputStream)}")
+    public String getAutomobileById;
+
+    @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${remove_automobile_path}')).inputStream)}")
+    public String removeAutomobile;
+
+    @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${remove_journey_path}')).inputStream)}")
+    public String removeJourney;
+
+    @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${update_automobile_path}')).inputStream)}")
+    public String updateAutomobile;
 
 
     @Autowired
@@ -80,19 +93,26 @@ public class AutomobileDaoImpl implements AutomobileDao {
 
     @Override
     public void removeAutomobile(Long id) {
-        //TODO
-
+        LOGGER.debug("removeAutomobile({})", id);
+        jdbcTemplate.update(removeJourney,id);
+        jdbcTemplate.update(removeAutomobile,id);
     }
 
     @Override
     public void updateAutomobile(Automobile automobile) {
-        //TODO
+        LOGGER.debug("updateAutomobile{}", automobile);
+        Map<String, Object> parameters = new HashMap(4);
+        parameters.put(AUTOMOBILE_ID,automobile.getId());
+        parameters.put(MAKE,automobile.getMake());
+        parameters.put(NUMBER,automobile.getNumber());
+        parameters.put(FUEL_RATE,automobile.getFuelRate());
+        namedJdbcTemplate.update(updateAutomobile,parameters);
     }
 
     @Override
     public Automobile getAutomobileById(Long id) {
-        //TODO
-        return null;
+        LOGGER.debug("getAutomobileById ({})",id);
+        return jdbcTemplate.queryForObject(getAutomobileById,new AutomobileMapper(),id);
     }
 
     @Override
@@ -100,7 +120,6 @@ public class AutomobileDaoImpl implements AutomobileDao {
         LOGGER.debug("getAllAutomobiles");
         return jdbcTemplate.query(getAllAutomobiles, new AutomobileMapper());
     }
-
 
     public class AutomobileMapper implements RowMapper<Automobile> {
         public Automobile mapRow(ResultSet rs, int i) throws SQLException {

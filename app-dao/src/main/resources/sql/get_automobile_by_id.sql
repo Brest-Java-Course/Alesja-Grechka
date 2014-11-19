@@ -1,1 +1,1 @@
-select automobileid,make,number,fuelrate from AUTOMOBILE where automobileid = 3;
+select automobileid,make,number,fuelrate from AUTOMOBILE where automobileid = ?
