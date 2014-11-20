@@ -98,7 +98,7 @@ public class JourneyDaoImpl implements JourneyDao {
 
     @Override
     public Long addJourney(Journey journey) {
-
+        //TODO: process situation if there is no such automobile,or different automobile parameters
         LOGGER.debug("addJourney({}) ", journey);
         Assert.notNull(journey);
         Assert.isNull(journey.getId());

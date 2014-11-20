@@ -150,4 +150,7 @@ public class JourneyDaoImplTest {
         List<AutomobileSummary> automobileSummaries = journeyDao.getAutomobileSummaries(date1,date2);
         assertNotNull(automobileSummaries);
     }
+
+    //TODO: add test with incorrect data, when exception expected
+
 }

@@ -1,8 +1,17 @@
 package com.epam.brest.taskproject.service;
 
+import com.epam.brest.taskproject.dao.JourneyDao;
 import com.epam.brest.taskproject.domain.AutomobileSummary;
 import com.epam.brest.taskproject.domain.Journey;
 import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.Date;
 import java.util.List;
@@ -12,21 +21,43 @@ import java.util.List;
  */
 @Service
 public class JourneyServiceImpl implements JourneyService {
+
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    @Autowired
+    JourneyDao journeyDao;
+
     @Override
     public Long addJourney(Journey journey) {
-        // TODO:
-        return null;
+        //TODO: process situation if there is no such automobile,or different automobile parameters
+        LOGGER.debug("addJourney({})", journey);
+        Assert.isNull(journey.getId(), "journey id should not be specified");
+        Assert.notNull(journey, "journey should be specified");
+        Assert.notNull(journey.getAutomobile(), "journey automobile should not be specified");
+        Assert.notNull(journey.getAutomobile().getId(), "journey automobileId should be specified");
+        Assert.notNull(journey.getDistance(), "journey distance should be specified");
+        Assert.notNull(journey.getDate(), "journey date should be specified");
+        Assert.notNull(journey.getOriginDestination(),"journey origin-destination should be specified");
+        return journeyDao.addJourney(journey);
     }
 
     @Override
     public void removeJourney(Long id) {
-        // TODO:
-
+        LOGGER.debug("removeJourney({})",id);
+        journeyDao.removeJourney(id);
     }
 
     @Override
     public void updateJourney(Journey journey) {
-        // TODO:
+        //TODO: process situation if there is no such automobile,or different automobile parameters
+        LOGGER.debug("updateJourney({})",journey);
+
+        try {
+            journeyDao.addJourney(journey);
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("updateJourney({})",journey);
+        }
+
 
     }
 
