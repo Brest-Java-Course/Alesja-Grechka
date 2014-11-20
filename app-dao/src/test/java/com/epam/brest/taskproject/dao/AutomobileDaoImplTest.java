@@ -5,6 +5,7 @@ import com.epam.brest.taskproject.domain.Automobile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
@@ -33,6 +34,24 @@ public class AutomobileDaoImplTest {
         assertEquals(sizeBefore, automobiles.size()-1 );
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void addAutomobileWithNullNumberTest(){
+        Automobile automobile = new Automobile(null,"fiat", null, 9.0);
+        automobileDao.addAutomobile(automobile);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void addAutomobileWithNullMakeTest(){
+        Automobile automobile = new Automobile(null,null, "8789ek7", 9.0);
+        automobileDao.addAutomobile(automobile);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void addAutomobileWithNotNullIdTest(){
+        Automobile automobile = new Automobile(13L,"fiat", "8789ek7", 9.0);
+        automobileDao.addAutomobile(automobile);
+    }
+
     @Test
     public void getAllAutomobilesTest(){
         List<Automobile> automobiles = automobileDao.getAllAutomobiles();
@@ -48,6 +67,26 @@ public class AutomobileDaoImplTest {
         assertEquals(id, automobile.getId() );
     }
 
+    @Test(expected = EmptyResultDataAccessException.class)
+    public void getAutomobileByIdIfNotExistTest(){
+        Long id =10L;
+        Automobile automobile = automobileDao.getAutomobileById(id);
+    }
+
+    @Test
+    public void getAutomobileByNumberTest(){
+        String number ="2101it1";
+        Automobile automobile = automobileDao.getAutomobileByNumber(number);
+        assertNotNull(automobile);
+        assertEquals(number, automobile.getNumber() );
+    }
+
+    @Test(expected = EmptyResultDataAccessException.class)
+    public void getAutomobileByNumberIfNotExistTest(){
+        String number ="0000ii1";
+        Automobile automobile = automobileDao.getAutomobileByNumber(number);
+    }
+
     @Test
     public void removeAutomobileTest(){
         List<Automobile> automobiles = automobileDao.getAllAutomobiles();
@@ -56,6 +95,15 @@ public class AutomobileDaoImplTest {
         automobiles = automobileDao.getAllAutomobiles();
 
         assertEquals(sizeBefore, automobiles.size()+1);
+    }
+
+    @Test
+    public void removeAutomobileIfNotExistTest(){
+        List<Automobile> automobiles = automobileDao.getAllAutomobiles();
+        int sizeBefore = automobiles.size();
+        automobileDao.removeAutomobile(12L);
+        automobiles = automobileDao.getAllAutomobiles();
+        assertEquals(sizeBefore, automobiles.size());
     }
 
     @Test
@@ -79,5 +127,21 @@ public class AutomobileDaoImplTest {
         assertEquals(numberModified, automobileModified.getNumber());
         assertEquals(numberModified, automobileModified.getNumber());
         assertEquals(fuelRateModified, automobileModified.getFuelRate());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void updateAutomobileWithEmptyNumberTest(){
+        Long id =1L;
+        String makeModified= "audi80";
+        String numberModified = null;
+        Double fuelRateModified=5.8;
+
+        Automobile automobile = automobileDao.getAutomobileById(id);
+
+        automobile.setFuelRate(fuelRateModified);
+        automobile.setMake(makeModified);
+        automobile.setNumber(numberModified);
+
+        automobileDao.updateAutomobile(automobile);
     }
 }

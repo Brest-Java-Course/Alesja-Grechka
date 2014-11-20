@@ -47,6 +47,9 @@ public class AutomobileDaoImpl implements AutomobileDao {
     @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${get_automobile_by_id_path}')).inputStream)}")
     public String getAutomobileById;
 
+    @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${get_automobile_by_number_path}')).inputStream)}")
+    public String getAutomobileByNumber;
+
     @Value("#{T(org.apache.commons.io.IOUtils).toString((new org.springframework.core.io.ClassPathResource('${remove_automobile_path}')).inputStream)}")
     public String removeAutomobile;
 
@@ -101,6 +104,13 @@ public class AutomobileDaoImpl implements AutomobileDao {
     @Override
     public void updateAutomobile(Automobile automobile) {
         LOGGER.debug("updateAutomobile{}", automobile);
+
+        Assert.notNull(automobile, "automobile must not be null");
+        Assert.notNull(automobile.getId(), "Automobile id should be specified.");
+        Assert.notNull(automobile.getMake(), "Automobile make should be specified.");
+        Assert.notNull(automobile.getNumber(), "Automobile number should be specified.");
+        Assert.notNull(automobile.getFuelRate(), "Automobile fuel rate should be specified.");
+
         Map<String, Object> parameters = new HashMap(4);
         parameters.put(AUTOMOBILE_ID,automobile.getId());
         parameters.put(MAKE,automobile.getMake());
@@ -113,6 +123,12 @@ public class AutomobileDaoImpl implements AutomobileDao {
     public Automobile getAutomobileById(Long id) {
         LOGGER.debug("getAutomobileById ({})",id);
         return jdbcTemplate.queryForObject(getAutomobileById,new AutomobileMapper(),id);
+    }
+
+    @Override
+    public Automobile getAutomobileByNumber(String number){
+        LOGGER.debug("getAutomobileByNumber({})",number);
+        return jdbcTemplate.queryForObject(getAutomobileByNumber, new AutomobileMapper(), number);
     }
 
     @Override

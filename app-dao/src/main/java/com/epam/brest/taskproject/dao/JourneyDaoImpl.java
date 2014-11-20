@@ -143,7 +143,7 @@ public class JourneyDaoImpl implements JourneyDao {
 
     @Override
     public Journey getJourneyById(Long id) {
-        LOGGER.debug(" getJourneyById({})",id);
+        LOGGER.debug("getJourneyById({})",id);
         return jdbcTemplate.queryForObject(getJourneyById, new JourneyMapper(), id);
     }
 
@@ -181,7 +181,7 @@ public class JourneyDaoImpl implements JourneyDao {
 
     @Override
     public List<AutomobileSummary> getAutomobileSummaries(Date date1, Date date2) {
-        LOGGER.debug("getAutomobileSummaries(){}, {}",SDF.format(date1),SDF.format(date2));
+        LOGGER.debug("getAutomobileSummaries({}, {})",SDF.format(date1),SDF.format(date2));
         return jdbcTemplate.query(getAutomobileSummariesBetweenDates, new AutomobileSummaryMapper(),
                 SDF.format(date1),SDF.format(date2));
     }

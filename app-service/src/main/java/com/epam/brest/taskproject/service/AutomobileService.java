@@ -1,14 +1,13 @@
-package com.epam.brest.taskproject.dao;
-
+package com.epam.brest.taskproject.service;
 
 import com.epam.brest.taskproject.domain.Automobile;
 
 import java.util.List;
 
 /**
- * Created by alesya on 18.11.14.
+ * Created by alesya on 20.11.14.
  */
-public interface AutomobileDao {
+public interface AutomobileService {
 
     public Long addAutomobile(Automobile automobile);
 
@@ -20,6 +19,6 @@ public interface AutomobileDao {
 
     public Automobile getAutomobileByNumber(String number);
 
-    public  List<Automobile> getAllAutomobiles();
+    public List<Automobile> getAllAutomobiles();
 
 }

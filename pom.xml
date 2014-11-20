@@ -9,7 +9,7 @@
     <modules>
         <module>app-core</module>
         <module>app-dao</module>
-
+        <module>app-service</module>
 
 
     </modules>
