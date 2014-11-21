@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +25,8 @@ import java.util.List;
 public class JourneyServiceImpl implements JourneyService {
 
     private static final Logger LOGGER = LogManager.getLogger();
+
+    public static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     JourneyDao journeyDao;
@@ -57,49 +61,54 @@ public class JourneyServiceImpl implements JourneyService {
         } catch (IllegalArgumentException e) {
             LOGGER.error("updateJourney({})",journey);
         }
-
-
     }
 
     @Override
     public Journey getJourneyById(Long id) {
-        // TODO:
+        LOGGER.debug("getJourneyById({})", id);
+        Journey journey = null;
+        try{
+            journey = journeyDao.getJourneyById(id);
+        } catch (EmptyResultDataAccessException e){
+            LOGGER.error("getJourneyById({}): {}", id, e.toString());
+        }
         return null;
     }
 
     @Override
     public List<Journey> getAllJourneys() {
-        // TODO:
-        return null;
+        LOGGER.debug("getAllJourneys()");
+        return journeyDao.getAllJourneys();
     }
 
     @Override
     public List<Journey> getJourneys(Date date1, Date date2) {
-        // TODO:
-        return null;
+        LOGGER.debug("getJourneys({}, {})", SDF.format(date1), SDF.format(date2));
+        return journeyDao.getJourneys(date1, date2);
     }
 
     @Override
     public List<Journey> getAllJourneysOfAutomobile(Long automobileId) {
-        // TODO:
-        return null;
+        LOGGER.debug("getAllJourneysOfAutomobile({})",automobileId);
+        return journeyDao.getAllJourneysOfAutomobile(automobileId);
     }
 
     @Override
     public List<Journey> getJourneysOfAutomobile(Long automobileId, Date date1, Date date2) {
-        // TODO:
+        LOGGER.debug("getJourneysOfAutomobile({}, {}, {})", automobileId,
+                SDF.format(date1), SDF.format(date2));
         return null;
     }
 
     @Override
     public List<AutomobileSummary> getAutomobileSummaries() {
-        // TODO:
-        return null;
+        LOGGER.debug("getAutomobileSummaries()");
+        return journeyDao.getAutomobileSummaries();
     }
 
     @Override
     public List<AutomobileSummary> getAutomobileSummaries(Date date1, Date date2) {
-        // TODO:
-        return null;
+        LOGGER.debug("getAutomobileSummaries({}, {})", SDF.format(date1), SDF.format(date2));
+        return journeyDao.getAutomobileSummaries(date1, date2);
     }
 }
