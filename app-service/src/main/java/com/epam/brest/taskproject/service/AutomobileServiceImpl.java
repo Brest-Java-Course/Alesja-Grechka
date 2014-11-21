@@ -49,12 +49,12 @@ public class AutomobileServiceImpl implements AutomobileService {
 
     @Override
     public void updateAutomobile(Automobile automobile) {
-        LOGGER.debug("updateAutomobile()",automobile);
+        LOGGER.debug("updateAutomobile({})",automobile);
 
         try {
             automobileDao.updateAutomobile(automobile);
         } catch (IllegalArgumentException e){
-            LOGGER.error("updateAutomobile()",automobile);
+            LOGGER.error("updateAutomobile({}): {}",automobile, e.toString());
         }
     }
 

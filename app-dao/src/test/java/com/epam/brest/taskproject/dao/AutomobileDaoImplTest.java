@@ -144,4 +144,20 @@ public class AutomobileDaoImplTest {
 
         automobileDao.updateAutomobile(automobile);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void updateAutomobileWithEmptyMakeTest(){
+        Long id =1L;
+        String makeModified= null;
+        String numberModified = "0014ii1";
+        Double fuelRateModified=5.8;
+
+        Automobile automobile = automobileDao.getAutomobileById(id);
+
+        automobile.setFuelRate(fuelRateModified);
+        automobile.setMake(makeModified);
+        automobile.setNumber(numberModified);
+
+        automobileDao.updateAutomobile(automobile);
+    }
 }
