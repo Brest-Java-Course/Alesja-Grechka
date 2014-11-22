@@ -102,7 +102,6 @@ public class JourneyDaoImpl implements JourneyDao {
         LOGGER.debug("addJourney({}) ", journey);
         Assert.notNull(journey);
         Assert.isNull(journey.getId());
-
         Assert.notNull(journey.getDate(), "journey date should be specified.");
         Assert.notNull(journey.getDistance(), "journey distance should be specified.");
         Assert.notNull(journey.getOriginDestination() , "journey origin-destination should be specified.");

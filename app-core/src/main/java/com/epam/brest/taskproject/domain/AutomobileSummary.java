@@ -33,6 +33,10 @@ public class AutomobileSummary {
     }
 
     public Double getSumFuel(){
+        if (sumDistance==null)
+            return 0D;
+        if (automobile.getFuelRate()==null)
+            return 0D;
         return sumDistance* automobile.getFuelRate();
     }
 }

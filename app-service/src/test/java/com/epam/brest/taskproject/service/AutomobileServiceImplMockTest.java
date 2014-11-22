@@ -146,7 +146,6 @@ public class AutomobileServiceImplMockTest {
         verify(automobileDao);
     }
 
-
     @Test
     public void updateAutomobileTest(){
         Automobile automobile= AutomobileDataFixture.getExistingAutomobile(1L);
@@ -192,6 +191,7 @@ public class AutomobileServiceImplMockTest {
         automobileService.updateAutomobile(automobile);
         verify(automobileDao);
     }
+
     @Test
     public void updateAutomobileWithNullIdTest(){
         Automobile automobile = AutomobileDataFixture.getNewAutomobile();

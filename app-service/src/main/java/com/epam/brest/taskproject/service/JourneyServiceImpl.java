@@ -72,7 +72,7 @@ public class JourneyServiceImpl implements JourneyService {
         } catch (EmptyResultDataAccessException e){
             LOGGER.error("getJourneyById({}): {}", id, e.toString());
         }
-        return null;
+        return journey;
     }
 
     @Override
@@ -97,7 +97,7 @@ public class JourneyServiceImpl implements JourneyService {
     public List<Journey> getJourneysOfAutomobile(Long automobileId, Date date1, Date date2) {
         LOGGER.debug("getJourneysOfAutomobile({}, {}, {})", automobileId,
                 SDF.format(date1), SDF.format(date2));
-        return null;
+        return journeyDao.getJourneysOfAutomobile(automobileId, date1, date2);
     }
 
     @Override
