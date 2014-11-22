@@ -31,8 +31,50 @@ public class JourneyDataFixture {
         return journey;
     }
 
-    public static Journey getJourney() throws ParseException {
+    public static Journey getJourney(Long journeyId) throws ParseException {
         Long automobileId = 1L;
+        String make= "audi80";
+        String number="0013ih1";
+        Double fuelRate= 6.2;
+        Automobile automobile =  new Automobile( automobileId,make,number,fuelRate);
+
+        Date date = SDF.parse("2014-01-01");
+        String originDestination = "minsk-brest";
+        Double distance =350.0;
+        Journey journey = new Journey(journeyId, automobile, date, originDestination, distance);
+        return journey;
+    }
+
+    public static Journey getJourneyWithNullDistance(Long journeyId) throws ParseException {
+        Long automobileId = 1L;
+        String make= "audi80";
+        String number="0013ih1";
+        Double fuelRate= 6.2;
+        Automobile automobile =  new Automobile( automobileId,make,number,fuelRate);
+
+        Date date = SDF.parse("2014-01-01");
+        String originDestination = "minsk-brest";
+        Double distance =null;
+        Journey journey = new Journey(journeyId, automobile, date, originDestination, distance);
+        return journey;
+    }
+
+    public static Journey getJourneyWithNullOriginDestination(Long journeyId) throws ParseException {
+        Long automobileId = 1L;
+        String make= "audi80";
+        String number="0013ih1";
+        Double fuelRate= 6.2;
+        Automobile automobile =  new Automobile( automobileId,make,number,fuelRate);
+
+        Date date = SDF.parse("2014-01-01");
+        String originDestination = null;
+        Double distance =350.0;
+        Journey journey = new Journey(journeyId, automobile, date, originDestination, distance);
+        return journey;
+    }
+
+    public static Journey getJourneyWithNullAutomobileId() throws ParseException {
+        Long automobileId = null;
         String make= "audi80";
         String number="0013ih1";
         Double fuelRate= 6.2;
@@ -40,6 +82,20 @@ public class JourneyDataFixture {
 
         Long journeyId = 1L;
         Date date = SDF.parse("2014-01-01");
+        String originDestination = "minsk-brest";
+        Double distance =350.0;
+        Journey journey = new Journey(journeyId, automobile, date, originDestination, distance);
+        return journey;
+    }
+    public static Journey getJourneyWithNullDate(){
+        Long automobileId = 1L;
+        String make= "audi80";
+        String number="0013ih1";
+        Double fuelRate= 6.2;
+        Automobile automobile =  new Automobile( automobileId,make,number,fuelRate);
+
+        Long journeyId = 1L;
+        Date date = null;
         String originDestination = "minsk-brest";
         Double distance =350.0;
         Journey journey = new Journey(journeyId, automobile, date, originDestination, distance);

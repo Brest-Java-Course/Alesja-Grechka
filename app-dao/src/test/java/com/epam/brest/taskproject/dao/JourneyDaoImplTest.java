@@ -7,6 +7,7 @@ import com.epam.brest.taskproject.domain.Journey;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -61,7 +62,7 @@ public class JourneyDaoImplTest {
     public void removeJourneyTest(){
         List<Journey> journeys = journeyDao.getAllJourneys();
         int size = journeys.size();
-        Long id = 1L;
+        Long id = 3L;
         journeyDao.removeJourney(id);
         journeys = journeyDao.getAllJourneys();
         assertEquals(size, journeys.size()+1);
@@ -73,6 +74,54 @@ public class JourneyDaoImplTest {
         Automobile modifiedAutomobile = new Automobile();
         modifiedAutomobile.setId(3L);
         Date modifiedDate = SDF.parse("2014-10-07");
+        String modifiedOriginDestination = "brest-grodno";
+        Double modifiedDistance = 266.0;
+
+        Journey journey = journeyDao.getJourneyById(journeyId);
+        journey.setAutomobile(modifiedAutomobile);
+        journey.setDate(modifiedDate);
+        journey.setOriginDestination(modifiedOriginDestination);
+        journey.setDistance(modifiedDistance);
+
+        journeyDao.updateJourney(journey);
+        Journey modifiedJourney = journeyDao.getJourneyById(journeyId);
+
+        assertNotNull(modifiedJourney);
+        assertEquals(modifiedAutomobile.getId(), modifiedJourney.getAutomobile().getId());
+        assertEquals(modifiedDate, modifiedJourney.getDate());
+        assertEquals(modifiedOriginDestination, modifiedJourney.getOriginDestination());
+        assertEquals(modifiedDistance, modifiedJourney.getDistance());
+    }
+
+    @Test(expected = EmptyResultDataAccessException.class)
+    public void updateJourneyWithNullAutomobileIdTest()throws ParseException{
+        Long journeyId =1L;
+        Automobile modifiedAutomobile = new Automobile();
+        Date modifiedDate = SDF.parse("2014-10-07");
+        String modifiedOriginDestination = "brest-grodno";
+        Double modifiedDistance = 266.0;
+
+        Journey journey = journeyDao.getJourneyById(journeyId);
+        journey.setAutomobile(modifiedAutomobile);
+        journey.setDate(modifiedDate);
+        journey.setOriginDestination(modifiedOriginDestination);
+        journey.setDistance(modifiedDistance);
+
+        journeyDao.updateJourney(journey);
+        Journey modifiedJourney = journeyDao.getJourneyById(journeyId);
+
+        assertNotNull(modifiedJourney);
+        assertEquals(modifiedAutomobile.getId(), modifiedJourney.getAutomobile().getId());
+        assertEquals(modifiedDate, modifiedJourney.getDate());
+        assertEquals(modifiedOriginDestination, modifiedJourney.getOriginDestination());
+        assertEquals(modifiedDistance, modifiedJourney.getDistance());
+    }
+    @Test(expected = NullPointerException.class)
+    public void updateJourneyWIthNullDateTest(){
+        Long journeyId =1L;
+        Automobile modifiedAutomobile = new Automobile();
+        modifiedAutomobile.setId(3L);
+        Date modifiedDate = null;
         String modifiedOriginDestination = "brest-grodno";
         Double modifiedDistance = 266.0;
 

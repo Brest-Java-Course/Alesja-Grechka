@@ -32,6 +32,7 @@ public class JourneyServiceImpl implements JourneyService {
     JourneyDao journeyDao;
 
     @Override
+    @Transactional
     public Long addJourney(Journey journey) {
         //TODO: process situation if there is no such automobile,or different automobile parameters
         LOGGER.debug("addJourney({})", journey);
@@ -46,20 +47,31 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
+    @Transactional
     public void removeJourney(Long id) {
         LOGGER.debug("removeJourney({})",id);
         journeyDao.removeJourney(id);
     }
 
     @Override
+    @Transactional
     public void updateJourney(Journey journey) {
         //TODO: process situation if there is no such automobile,or different automobile parameters
         LOGGER.debug("updateJourney({})",journey);
+        Assert.notNull(journey);
+        Assert.notNull(journey.getId());
+        Assert.notNull(journey.getAutomobile().getId());
+        Assert.notNull(journey.getDate());
+        Assert.notNull(journey.getOriginDestination());
+        Assert.notNull(journey.getDistance());
 
         try {
-            journeyDao.addJourney(journey);
+            journeyDao.updateJourney(journey);
         } catch (IllegalArgumentException e) {
             LOGGER.error("updateJourney({})",journey);
+        }
+        catch (NullPointerException e) {
+            LOGGER.error("updateJourney({}): {}",journey, e.toString());
         }
     }
 
