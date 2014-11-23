@@ -25,6 +25,7 @@ public class AutomobileServiceImpl implements AutomobileService {
     private AutomobileDao automobileDao;
 
     @Override
+    @Transactional
     public Long addAutomobile(Automobile automobile) {
         LOGGER.debug("addAutomobile{}", automobile);
 

@@ -10,8 +10,7 @@
         <module>app-core</module>
         <module>app-dao</module>
         <module>app-service</module>
-
-
+        <module>app-rest</module>
     </modules>
 
     <properties>

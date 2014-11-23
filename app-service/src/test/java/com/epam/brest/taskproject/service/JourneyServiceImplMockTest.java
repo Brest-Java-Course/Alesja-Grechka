@@ -219,5 +219,4 @@ public class JourneyServiceImplMockTest {
         verify(journeyDao);
         assertEquals(automobileSummariesExpected, automobileSummaries);
     }
-
 }
