@@ -15,6 +15,14 @@
         <constructor-arg value="com.epam.brest.taskproject.service.AutomobileService"/>
     </bean>
 
+    <bean id="JourneyDao" class="org.easymock.EasyMock" factory-method="createMock">
+        <constructor-arg value="com.epam.brest.taskproject.dao.JourneyDao"/>
+    </bean>
+
+    <bean id="JourneyService" class="org.easymock.EasyMock" factory-method="createMock">
+        <constructor-arg value="com.epam.brest.taskproject.service.JourneyService"/>
+    </bean>
+
     <context:component-scan base-package="com.epam.brest.taskproject.rest"/>
 
 </beans>
