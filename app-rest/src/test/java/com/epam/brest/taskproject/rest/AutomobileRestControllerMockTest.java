@@ -203,5 +203,4 @@ public class AutomobileRestControllerMockTest {
         result.andExpect(status().isOk());
         verify(automobileService);
     }
-
-}
+  }

@@ -97,8 +97,8 @@ public class JourneyRestController {
         return new ResponseEntity(journeys, HttpStatus.OK);
     }
 
-    @ResponseBody
-//    @RequestMapping(value = "/automobileId/{automobileId}/date1/{date1" +regExpDateFormat+
+//    @ResponseBody
+//    @RequestMapping(value = "/automobileId/{automobileId}/date1/{date1:" +regExpDateFormat+
 //            "}/date2/{date2:" +regExpDateFormat+"}", method = RequestMethod.GET)
     @RequestMapping(value = "/automobileId/{automobileId}/date1/{date1}/date2/{date2}",
             method = RequestMethod.GET)
@@ -129,5 +129,4 @@ public class JourneyRestController {
         List summary =  journeyService.getAutomobileSummaries(dateFrom, dateTo);
         return new ResponseEntity(summary, HttpStatus.OK);
     }
-
 }

@@ -46,7 +46,7 @@ public class AutomobileRestController {
             automobileService.updateAutomobile(automobile);
             return new ResponseEntity("", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity(automobile+"can not be updated", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
     }
