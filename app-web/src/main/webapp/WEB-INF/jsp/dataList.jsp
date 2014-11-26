@@ -59,7 +59,7 @@
             <td>distance</td>
             <td>date</td>
         </th>
-    <c:forEach items="${journeys}" var="journey">
+        <c:forEach items="${journeys}" var="journey">
         <tr>
             <td/>
             <td>${journey.id}</td>

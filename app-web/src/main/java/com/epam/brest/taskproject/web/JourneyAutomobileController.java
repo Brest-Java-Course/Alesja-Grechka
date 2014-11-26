@@ -6,10 +6,12 @@ import com.epam.brest.taskproject.service.AutomobileService;
 import com.epam.brest.taskproject.service.JourneyService;
 import com.epam.brest.taskproject.service.JourneyService;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -62,14 +64,17 @@ public class JourneyAutomobileController {
 
     @RequestMapping("/submitJourneyData")
     public String getJourneyInputForm(@RequestParam("date")String dateStr,
-                               @RequestParam("automobileId")String automobileIdStr,
+                               @RequestParam("automobile")String automobileStr,
                                @RequestParam("originDestination")String originDestination,
                                @RequestParam("distance")String distanceStr )throws Exception{
 
-        //TODO: input full data of automobile from listbox;
+
         Double distance = Double.parseDouble(distanceStr);
-        Long automobileId = Long.parseLong(automobileIdStr);
+
+        Long automobileId = Long.parseLong(automobileStr);
         Date date = SDF.parse(dateStr);
+
+
 
         Automobile automobile = new Automobile();
         automobile.setId(automobileId);
@@ -89,7 +94,10 @@ public class JourneyAutomobileController {
     @RequestMapping("/inputFormJourney")
     public ModelAndView launchJourneyInputForm() {
         LOGGER.debug("launchInputForm(): /inputFormJourney");
-        return new ModelAndView("inputFormJourney", "journey", new Journey());
+        List<Automobile> automobiles = automobileService.getAllAutomobiles();
+        ModelAndView view = new ModelAndView("inputFormJourney", "journey", new Journey());
+        view.addObject("automobiles", automobiles);
+        return view;
     }
 
     @RequestMapping("/dataList")
