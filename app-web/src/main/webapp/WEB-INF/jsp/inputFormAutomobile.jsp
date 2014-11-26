@@ -14,10 +14,7 @@ input[type='text'] {
 </style>
 <form action="/submitAutomobileData" method="post">
     <label path="Automobile make:">Make:</label>
-    <input type="text" name="make">
-
-    </input>
-    <br/>
+    <input type="text" name="make"></input><br/>
     <label path="number:">Number:</label><input type="text" name="number"/><br/>
     <label path="fuelRate:">Fuel Rate:</label><input type="text" name="fuelRate"/><br/>
     <input type="submit" name="Submit">

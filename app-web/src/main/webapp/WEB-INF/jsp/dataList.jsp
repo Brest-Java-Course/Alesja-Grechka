@@ -76,6 +76,7 @@
 </ul>
 </form:form>
 <a href='<spring:url value="/inputFormJourney" />'> <spring:message code="journey.create" /></a>
+<p><a href='<spring:url value="/summary" />'> <spring:message code="summary.list" /></a></p>
 
 </body>
 </html>

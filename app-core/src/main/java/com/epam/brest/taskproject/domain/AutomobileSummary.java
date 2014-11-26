@@ -7,6 +7,7 @@ public class AutomobileSummary {
 
     private Automobile automobile;
     private Double sumDistance;
+    private Double sumFuel;
 
     public AutomobileSummary() {
     }
@@ -14,29 +15,22 @@ public class AutomobileSummary {
     public AutomobileSummary(Automobile automobile, Double sumDistance) {
         this.automobile = automobile;
         this.sumDistance = sumDistance;
+        if (sumDistance == null)
+            this.sumFuel = 0D;
+        if (automobile.getFuelRate() == null)
+            this.sumFuel = 0D;
+        this.sumFuel =  sumDistance* automobile.getFuelRate();
     }
 
     public Automobile getAutomobile() {
         return automobile;
     }
 
-    public void setAutomobile(Automobile automobile) {
-        this.automobile = automobile;
-    }
-
     public Double getSumDistance() {
         return sumDistance;
     }
 
-    public void setSumDistance(Double sumDistance) {
-        this.sumDistance = sumDistance;
-    }
-
     public Double getSumFuel(){
-        if (sumDistance==null)
-            return 0D;
-        if (automobile.getFuelRate()==null)
-            return 0D;
-        return sumDistance* automobile.getFuelRate();
+        return sumFuel;
     }
 }

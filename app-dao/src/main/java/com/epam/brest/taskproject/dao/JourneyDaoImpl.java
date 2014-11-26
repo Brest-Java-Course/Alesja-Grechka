@@ -206,7 +206,6 @@ public class JourneyDaoImpl implements JourneyDao {
     public class AutomobileSummaryMapper implements RowMapper<AutomobileSummary> {
         public AutomobileSummary mapRow(ResultSet rs, int i) throws SQLException {
             Journey journey = new Journey();
-            AutomobileSummary automobileSummary = new AutomobileSummary();
 
             Automobile automobile = new Automobile();
             automobile.setId(rs.getLong(AUTOMOBILE_ID));
@@ -214,10 +213,9 @@ public class JourneyDaoImpl implements JourneyDao {
             automobile.setNumber(rs.getString(NUMBER));
             automobile.setFuelRate(rs.getDouble(FUEL_RATE));
 
-            automobileSummary.setAutomobile(automobile);
-            automobileSummary.setSumDistance(rs.getDouble(SUM_DISTANCE));
-
-            return automobileSummary;
+            AutomobileSummary automobileSummary =
+                    new AutomobileSummary(automobile, rs.getDouble(SUM_DISTANCE));
+             return automobileSummary;
         }
     }
 }

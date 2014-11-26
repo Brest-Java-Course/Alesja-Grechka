@@ -247,12 +247,12 @@ public class JourneyRestControllerMockTest {
         this.mockMvc.perform(get("/journeys/summary").accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("[{\"automobile\":{\"id\":1,\"make\":\"audi\"," +
-                        "\"number\":\"0013ih1\",\"fuelRate\":6.2},\"sumDistance\":250.0,\"sumFuel\":1550.0}," +
-                        "{\"automobile\":{\"id\":2,\"make\":\"alfaromeo\"," +
-                        "\"number\":\"4707ek1\",\"fuelRate\":5.1},\"sumDistance\":300.0,\"sumFuel\":1530.0}," +
-                        "{\"automobile\":{\"id\":3,\"make\":\"ford\"," +
-                        "\"number\":\"2101it1\",\"fuelRate\":8.1},\"sumDistance\":0.0,\"sumFuel\":0.0}]"));
+                .andExpect(content().string("[{\"automobile\":{\"id\":1,\"make\":\"audi\",\"number\":\"0013ih1\"," +
+                        "\"fuelRate\":6.2},\"sumDistance\":250.0,\"sumFuel\":1550.0}," +
+                        "{\"automobile\":{\"id\":2,\"make\":\"alfaromeo\",\"number\":\"4707ek1\"," +
+                        "\"fuelRate\":5.1},\"sumDistance\":300.0,\"sumFuel\":1530.0}," +
+                        "{\"automobile\":{\"id\":3,\"make\":\"ford\",\"number\":\"2101it1\"," +
+                        "\"fuelRate\":8.1},\"sumDistance\":0.0,\"sumFuel\":0.0}]"));
         verify(journeyService);
     }
 
@@ -268,9 +268,8 @@ public class JourneyRestControllerMockTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("[{\"automobile\":{\"id\":1,\"make\":\"audi\"," +
                         "\"number\":\"0013ih1\",\"fuelRate\":6.2},\"sumDistance\":250.0,\"sumFuel\":1550.0}," +
-                        "{\"automobile\":{\"id\":2,\"make\":\"alfaromeo\"," +
-                        "\"number\":\"4707ek1\",\"fuelRate\":5.1},\"sumDistance\":300.0,\"sumFuel\":1530.0}," +
-                        "{\"automobile\":{\"id\":3,\"make\":\"ford\"," +
+                        "{\"automobile\":{\"id\":2,\"make\":\"alfaromeo\",\"number\":\"4707ek1\",\"fuelRate\":5.1}," +
+                        "\"sumDistance\":300.0,\"sumFuel\":1530.0},{\"automobile\":{\"id\":3,\"make\":\"ford\"," +
                         "\"number\":\"2101it1\",\"fuelRate\":8.1},\"sumDistance\":0.0,\"sumFuel\":0.0}]"));
         verify(journeyService);
     }

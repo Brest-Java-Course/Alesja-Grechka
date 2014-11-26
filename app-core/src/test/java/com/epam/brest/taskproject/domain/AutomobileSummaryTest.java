@@ -46,6 +46,6 @@ public class AutomobileSummaryTest {
 
         AutomobileSummary automobileSummary = new AutomobileSummary();
 
-        assertEquals(automobileSummary.getSumFuel(), Double.valueOf(0));
+        assertEquals(automobileSummary.getSumFuel(), null);
     }
 }
