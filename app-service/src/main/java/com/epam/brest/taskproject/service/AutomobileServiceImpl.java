@@ -37,7 +37,8 @@ public class AutomobileServiceImpl implements AutomobileService {
 
         Automobile existingAutomobile = getAutomobileByNumber(automobile.getNumber());
         if(existingAutomobile != null){
-            throw new IllegalArgumentException(automobile+ "is present in db");
+            throw new IllegalArgumentException("automobile with number ["+ automobile.getNumber()
+                    +"] is present in db");
         }
         return automobileDao.addAutomobile(automobile);
     }
