@@ -70,18 +70,12 @@ public class JourneyAutomobileController {
                                @RequestParam("automobile")String automobileStr,
                                @RequestParam("originDestination")String originDestination,
                                @RequestParam("distance")String distanceStr )throws Exception{
-
-
         Double distance = Double.parseDouble(distanceStr);
 
         Long automobileId = Long.parseLong(automobileStr);
         Date date = SDF.parse(dateStr);
-
-
-
         Automobile automobile = new Automobile();
         automobile.setId(automobileId);
-
         Journey journey = new Journey();
         journey.setAutomobile(automobile);
         journey.setDate(date);
@@ -116,8 +110,7 @@ public class JourneyAutomobileController {
 
     @RequestMapping("/summary")
     public ModelAndView launchSummary(){
-        if(summaries == null)
-            summaries = journeyService.getAutomobileSummaries();
+        summaries = journeyService.getAutomobileSummaries();
         ModelAndView view =new ModelAndView();
         view.addObject("summaries", summaries);
         return view;

@@ -29,7 +29,7 @@
 
 <p>
     <form action="/AllSummaries" method="post">
-    <input type="submit" name="show all summaries"></form>
+    <label path="show_all_summaries">show all summaries</label><input type="submit" name="Summit"></form>
 </p>
 
 <form:form method="get" modelAttribute="summaries">
