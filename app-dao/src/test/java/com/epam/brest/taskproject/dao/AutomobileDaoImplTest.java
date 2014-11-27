@@ -75,7 +75,7 @@ public class AutomobileDaoImplTest {
 
     @Test
     public void getAutomobileByNumberTest(){
-        String number ="2101it1";
+        String number ="2101-it7";
         Automobile automobile = automobileDao.getAutomobileByNumber(number);
         assertNotNull(automobile);
         assertEquals(number, automobile.getNumber() );
@@ -83,7 +83,7 @@ public class AutomobileDaoImplTest {
 
     @Test(expected = EmptyResultDataAccessException.class)
     public void getAutomobileByNumberIfNotExistTest(){
-        String number ="0000ii1";
+        String number ="0000-ii1";
         Automobile automobile = automobileDao.getAutomobileByNumber(number);
     }
 
@@ -110,7 +110,7 @@ public class AutomobileDaoImplTest {
     public void updateAutomobileTest(){
         Long id =1L;
         String makeModified= "audi80";
-        String numberModified ="0014ii1";
+        String numberModified ="0014-ii1";
         Double fuelRateModified=5.8;
 
         Automobile automobile = automobileDao.getAutomobileById(id);
@@ -149,7 +149,7 @@ public class AutomobileDaoImplTest {
     public void updateAutomobileWithEmptyMakeTest(){
         Long id =1L;
         String makeModified= null;
-        String numberModified = "0014ii1";
+        String numberModified = "0014-ii1";
         Double fuelRateModified=5.8;
 
         Automobile automobile = automobileDao.getAutomobileById(id);

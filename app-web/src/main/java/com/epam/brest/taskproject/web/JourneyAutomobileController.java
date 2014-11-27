@@ -31,6 +31,7 @@ public class JourneyAutomobileController {
     public static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 
     private List<AutomobileSummary> summaries;
+    private Automobile managedAutomobile = new Automobile();
 
     @Autowired
     private AutomobileService automobileService;
@@ -132,4 +133,56 @@ public class JourneyAutomobileController {
         LOGGER.debug(" getSummary: summary.size: {}", summaries.size());
         return  "redirect:/summary";
     }
+
+    @RequestMapping("/managerAutomobile")
+    public ModelAndView launchAutomobileManager(){
+        LOGGER.debug("launchAutomobileManager");
+
+        List<Automobile> automobiles = automobileService.getAllAutomobiles();
+        ModelAndView view =new ModelAndView();
+        view.addObject("automobiles", automobiles);
+        view.addObject("managedAutomobile", managedAutomobile);
+        return  view;
+    }
+
+    @RequestMapping("/submitFindAuto")
+    public String findAutomobileByNumber(@RequestParam("number")String number){
+        LOGGER.debug("findAutomobileByNumber: {}", number);
+        managedAutomobile =  automobileService.getAutomobileByNumber(number);
+        return  "redirect:/managerAutomobile";
+    }
+
+    @RequestMapping("/submitSelectAuto")
+    public String selectAutomobile(@RequestParam("automobile")String automobile){
+        LOGGER.debug("selectAutomobile: {}", automobile);
+        Long automobileId = Long.parseLong(automobile);
+        managedAutomobile =  automobileService.getAutomobileById(automobileId);
+        return  "redirect:/managerAutomobile";
+    }
+
+    @RequestMapping("/submitManageAuto")
+    public String manageAutomobile(@RequestParam("automobileId")String automobileIdStr,
+                                   @RequestParam("make") String make,
+                                   @RequestParam("number") String number,
+                                   @RequestParam("fuelRate") String fuelRateStr,
+                                   @RequestParam("manage") String manage){
+        LOGGER.debug("manageAutomobile: {}", manage);
+
+        Long automobileId = Long.parseLong(automobileIdStr);
+        Double fuelRate = Double.parseDouble(fuelRateStr);
+
+        if(manage.equals("update")){
+            Automobile automobile = new Automobile(automobileId, make, number,fuelRate);
+            automobileService.updateAutomobile(automobile);
+            managedAutomobile =  automobileService.getAutomobileById(automobileId);
+        }
+
+        if(manage.equals("delete")){
+            automobileService.removeAutomobile(automobileId);
+            managedAutomobile =  new Automobile();
+        }
+
+        return  "redirect:/managerAutomobile";
+    }
+
 }

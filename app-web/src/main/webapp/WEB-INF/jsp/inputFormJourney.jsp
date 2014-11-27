@@ -34,7 +34,6 @@ input[type='text'] {
         </select>
     </ul>
     </form:form>
-
     <input type="submit" name="Submit">
 </form>
 </body>

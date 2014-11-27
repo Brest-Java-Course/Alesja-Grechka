@@ -43,7 +43,8 @@
     </table>
 </ul>
 </form:form>
-<a href='<spring:url value="/inputFormAutomobile" />'> <spring:message code="automobile.create" /></a>
+<a href='<spring:url value="/inputFormAutomobile" />'> <spring:message code="automobile.create" /></a></br>
+<a href='<spring:url value="/managerAutomobile" />'> <spring:message code="automobile.manager" /></a>
 
 <form:form method="get" modelAttribute="journeys">
 <h1><spring:message code="journey.list" /></h1>
@@ -76,6 +77,7 @@
 </ul>
 </form:form>
 <a href='<spring:url value="/inputFormJourney" />'> <spring:message code="journey.create" /></a>
+</br>
 <p><a href='<spring:url value="/summary" />'> <spring:message code="summary.list" /></a></p>
 
 </body>
