@@ -32,6 +32,7 @@ public class JourneyAutomobileController {
 
     private List<AutomobileSummary> summaries;
     private Automobile managedAutomobile = new Automobile();
+    private Journey managedJourney = new Journey();
 
     @Autowired
     private AutomobileService automobileService;
@@ -55,7 +56,6 @@ public class JourneyAutomobileController {
                                @RequestParam("number")String number,
                                @RequestParam("fuelRate")String fuelRateStr) {
         Double fuelRate = Double.parseDouble(fuelRateStr);
-
         Automobile automobile = new Automobile();
         automobile.setMake(make);
         automobile.setNumber(number);
@@ -68,11 +68,11 @@ public class JourneyAutomobileController {
 
     @RequestMapping("/submitJourneyData")
     public String getJourneyInputForm(@RequestParam("date")String dateStr,
-                               @RequestParam("automobile")String automobileStr,
-                               @RequestParam("originDestination")String originDestination,
-                               @RequestParam("distance")String distanceStr )throws Exception{
-        Double distance = Double.parseDouble(distanceStr);
+                                      @RequestParam("automobile")String automobileStr,
+                                      @RequestParam("originDestination")String originDestination,
+                                      @RequestParam("distance")String distanceStr )throws Exception{
 
+        Double distance = Double.parseDouble(distanceStr);
         Long automobileId = Long.parseLong(automobileStr);
         Date date = SDF.parse(dateStr);
         Automobile automobile = new Automobile();
@@ -82,10 +82,8 @@ public class JourneyAutomobileController {
         journey.setDate(date);
         journey.setOriginDestination(originDestination);
         journey.setDistance(distance);
-
         Long id = journeyService.addJourney(journey);
-        LOGGER.debug("new journey: {}", id);
-
+        LOGGER.debug("new journey: {} ", id);
         return "redirect:/dataList";
     }
 
@@ -105,13 +103,11 @@ public class JourneyAutomobileController {
         LOGGER.debug("automobiles.size = " + automobiles.size());
         ModelAndView view = new ModelAndView("dataList", "automobiles", automobiles);
         view.addObject("journeys", journeys);
-
         return view;
     }
 
     @RequestMapping("/summary")
     public ModelAndView launchSummary(){
-        summaries = journeyService.getAutomobileSummaries();
         ModelAndView view =new ModelAndView();
         view.addObject("summaries", summaries);
         return view;
@@ -137,9 +133,8 @@ public class JourneyAutomobileController {
     @RequestMapping("/managerAutomobile")
     public ModelAndView launchAutomobileManager(){
         LOGGER.debug("launchAutomobileManager");
-
         List<Automobile> automobiles = automobileService.getAllAutomobiles();
-        ModelAndView view =new ModelAndView();
+        ModelAndView view = new ModelAndView();
         view.addObject("automobiles", automobiles);
         view.addObject("managedAutomobile", managedAutomobile);
         return  view;
@@ -167,22 +162,70 @@ public class JourneyAutomobileController {
                                    @RequestParam("fuelRate") String fuelRateStr,
                                    @RequestParam("manage") String manage){
         LOGGER.debug("manageAutomobile: {}", manage);
-
         Long automobileId = Long.parseLong(automobileIdStr);
         Double fuelRate = Double.parseDouble(fuelRateStr);
-
         if(manage.equals("update")){
             Automobile automobile = new Automobile(automobileId, make, number,fuelRate);
             automobileService.updateAutomobile(automobile);
             managedAutomobile =  automobileService.getAutomobileById(automobileId);
         }
-
         if(manage.equals("delete")){
             automobileService.removeAutomobile(automobileId);
             managedAutomobile =  new Automobile();
         }
-
         return  "redirect:/managerAutomobile";
     }
 
+    @RequestMapping("/managerJourney")
+    public ModelAndView launchJourneyManager(){
+        LOGGER.debug("launchJourneyManager");
+
+        List<Automobile> automobiles = automobileService.getAllAutomobiles();
+        List<Journey> journeys = journeyService.getAllJourneys();
+        ModelAndView view = new ModelAndView();
+        view.addObject("automobiles", automobiles);
+        view.addObject("journeys", journeys);
+        view.addObject("managedJourney", managedJourney);
+        return  view;
+    }
+
+    @RequestMapping("/submitSelectJourney")
+    public String selectJourney (@RequestParam("journey")String journey)
+    {
+        LOGGER.debug("selectJourney: {}", journey);
+        Long journeyId = Long.parseLong(journey);
+        managedJourney =  journeyService.getJourneyById(journeyId);
+        return  "redirect:/managerJourney";
+    }
+
+    @RequestMapping("/submitManageJourney")
+    public String manageJourney(@RequestParam("journey")String journeyIdStr,
+                                @RequestParam("automobile")String automobileIdStr,
+                                @RequestParam("date")String dateStr,
+                                @RequestParam("originDestination")String originDestination,
+                                @RequestParam("distance")String distanceStr,
+                                @RequestParam("manage") String manage) throws Exception{
+        LOGGER.debug("manageJourney");
+
+        Long journeyId = Long.parseLong(journeyIdStr);
+        Long automobileId = Long.parseLong(automobileIdStr);
+        Date date = SDF.parse(dateStr);
+        Double distance = Double.parseDouble(distanceStr);
+
+        if(manage.equals("update")){
+
+            Automobile automobile = new Automobile();
+            automobile.setId(automobileId);
+            Journey journey = new Journey(journeyId, automobile, date, originDestination, distance);
+            journeyService.updateJourney(journey);
+            managedJourney = journeyService.getJourneyById(journeyId);
+        }
+
+        if(manage.equals("delete")){
+            journeyService.removeJourney(journeyId);
+            managedJourney = new Journey();
+        }
+
+        return  "redirect:/managerJourney";
+    }
 }

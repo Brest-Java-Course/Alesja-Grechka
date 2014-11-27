@@ -50,13 +50,26 @@ public class AutomobileServiceImpl implements AutomobileService {
     }
 
     @Override
-    public void updateAutomobile(Automobile automobile) {
-        LOGGER.debug("updateAutomobile({})",automobile);
+    public void updateAutomobile(Automobile automobileModified) {
+        LOGGER.debug("updateAutomobile  modified:({})",automobileModified);
+
+        Automobile automobile = getAutomobileById(automobileModified.getId());
+        LOGGER.debug("updateAutomobile  previous:({})",automobile);
+
+        if( ! automobile.getNumber().equals(automobileModified.getNumber()) ){
+            Automobile automobileWithTheSameNumber =
+                    getAutomobileByNumber( automobileModified.getNumber() );
+            if( automobileWithTheSameNumber != null){
+                LOGGER.debug("automobileWithTheSameNumber:{}", automobileWithTheSameNumber);
+                throw new IllegalArgumentException("modified number:["+automobileModified.getNumber()+
+                        "] is present in db");
+            }
+        }
 
         try {
-            automobileDao.updateAutomobile(automobile);
+            automobileDao.updateAutomobile(automobileModified);
         } catch (IllegalArgumentException e){
-            LOGGER.error("updateAutomobile({}): {}",automobile, e.toString());
+            LOGGER.error("updateAutomobile({}): {}",automobileModified, e.toString());
         }
     }
 

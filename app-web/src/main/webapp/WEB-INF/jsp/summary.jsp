@@ -22,8 +22,10 @@
 </style>
 
 <form action="/filterSummary" method="post">
-    <label path="date from:">date from:</label><input type="text" name="dateFrom">
-    <label path="date to:">date to:</label><input type="text" name="dateTo">
+    <label path="date from:">date from:</label>
+    <input type="date" required name="dateFrom">
+    <label path="date to:">date to:</label>
+    <input type="date" required name="dateTo">
     <input type="submit" name="filter">
 </form>
 

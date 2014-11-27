@@ -81,7 +81,6 @@ public class AutomobileDaoImpl implements AutomobileDao {
         Assert.notNull(automobile.getNumber(), "Automobile number should be specified.");
         Assert.notNull(automobile.getFuelRate(), "Automobile fuel rate should be specified.");
 
-
         Map<String, Object> parameters = new HashMap(4);
         parameters.put(AUTOMOBILE_ID, automobile.getId());
         parameters.put(MAKE, automobile.getMake());

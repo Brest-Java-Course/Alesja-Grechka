@@ -21,20 +21,25 @@ input[type='text'] {
 </style>
 
 <form action="/submitJourneyData" method="post">
-    <label path="date">journey date(yyyy-MM-dd):</label><input type="text" name="date"/><br/>
-    <label path="originDestination">origin-destination:</label><input type="text" name="originDestination"/><br/>
-    <label path="distance">distance:</label><input type="text" name="distance"/><br/>
-    <label path="automobile">automobile:</label>
     <form:form method="get" modelAttribute="journeys">
-    <ul>
-        <select name="automobile">
-            <c:forEach items="${automobiles}" var="automobile">
-            <option value =${automobile.id}>${automobile}</option>
-            </c:forEach>
-        </select>
-    </ul>
-    </form:form>
-    <input type="submit" name="Submit">
+    <label path="automobile">select automobile:</label>
+    <select name="automobile">
+        <c:forEach items="${automobiles}" var="automobile">
+        <option value =${automobile.id}>${automobile}</option>
+        </c:forEach>
+    </select>
+    </form:form></p>
+
+    <label path="date">journey date:</label>
+    <input type="date" required name="date"/></p>
+
+    <label path="originDestination">origin-destination:</label>
+    <input type="text" required name="originDestination"/></p>
+
+    <label path="distance">distance:00000000.00</label>
+    <input type="text" required pattern ="[0-9]{1,8}.[0-1]{1,2}" name="distance"/></p>
+
+    </p><input type="submit" name="Submit">
 </form>
 </body>
 </html>

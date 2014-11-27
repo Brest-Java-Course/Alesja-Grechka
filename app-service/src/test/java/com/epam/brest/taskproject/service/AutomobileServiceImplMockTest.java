@@ -149,6 +149,9 @@ public class AutomobileServiceImplMockTest {
     @Test
     public void updateAutomobileTest(){
         Automobile automobile= AutomobileDataFixture.getExistingAutomobile(1L);
+        Automobile automobileWithModifiedMake =  AutomobileDataFixture.getExistingAutomobile(1L);
+        automobileWithModifiedMake.setMake("mersedes");
+        expect(automobileDao.getAutomobileById(1L)).andReturn(automobile);
         automobileDao.updateAutomobile(automobile);
         expectLastCall();
         replay(automobileDao);
@@ -157,50 +160,34 @@ public class AutomobileServiceImplMockTest {
     }
 
     @Test
-    public void updateAutomobileWithNullMakeTest(){
-        Automobile automobile = AutomobileDataFixture.getAutomobileWithNullMake();
-        automobileDao.updateAutomobile(automobile);
-
-        expectLastCall().andThrow(new IllegalArgumentException());
+    public void updateAutomobileWithModifiedNumberTest(){
+        Automobile automobile= AutomobileDataFixture.getExistingAutomobile(1L);
+        Automobile automobileWithNewNumber = AutomobileDataFixture.getExistingAutomobile(1L);
+        automobileWithNewNumber.setNumber("7777-ik0");
+        expect(automobileDao.getAutomobileById(1L)).andReturn(automobile);
+        expect(automobileDao.getAutomobileByNumber(automobileWithNewNumber.getNumber()))
+                .andReturn(null);
+        automobileDao.updateAutomobile(automobileWithNewNumber);
+        expectLastCall();
         replay(automobileDao);
-
-        automobileService.updateAutomobile(automobile);
+        automobileService.updateAutomobile(automobileWithNewNumber);
         verify(automobileDao);
     }
 
-    @Test
-    public void updateAutomobileWithNullNumberTest(){
-        Automobile automobile = AutomobileDataFixture.getAutomobileWithNullNumber();
-        automobileDao.updateAutomobile(automobile);
-
-        expectLastCall().andThrow(new IllegalArgumentException());
+    @Test(expected = IllegalArgumentException.class)
+    public void updateAutomobileWithDoubleModifiedNumberTest(){
+        Automobile automobile= AutomobileDataFixture.getExistingAutomobile(1L);
+        Automobile automobileWithNewNumber = AutomobileDataFixture.getExistingAutomobile(1L);
+        automobileWithNewNumber.setNumber("7777-ik0");
+        expect(automobileDao.getAutomobileById(1L)).andReturn(automobile);
+        expect(automobileDao.getAutomobileByNumber(automobileWithNewNumber.getNumber()))
+                .andReturn(new Automobile());
+        automobileDao.updateAutomobile(automobileWithNewNumber);
+        expectLastCall();
         replay(automobileDao);
-
-        automobileService.updateAutomobile(automobile);
+        automobileService.updateAutomobile(automobileWithNewNumber);
         verify(automobileDao);
     }
 
-    @Test
-    public void updateAutomobileWithNullFuelRateTest(){
-        Automobile automobile = AutomobileDataFixture.getAutomobileWithNullFuelRate();
-        automobileDao.updateAutomobile(automobile);
 
-        expectLastCall().andThrow(new IllegalArgumentException());
-        replay(automobileDao);
-
-        automobileService.updateAutomobile(automobile);
-        verify(automobileDao);
-    }
-
-    @Test
-    public void updateAutomobileWithNullIdTest(){
-        Automobile automobile = AutomobileDataFixture.getNewAutomobile();
-        automobileDao.updateAutomobile(automobile);
-
-        expectLastCall().andThrow(new IllegalArgumentException());
-        replay(automobileDao);
-
-        automobileService.updateAutomobile(automobile);
-        verify(automobileDao);
-    }
 }
