@@ -11,11 +11,9 @@
     <form:form method="get" modelAttribute="journeys">
         <select name="journey">
             <c:forEach items="${journeys}" var="journey">
-            <option value =${journey.id}>${journey.id} ${journey.originDestination}
-            ${journey.automobile.make} ${journey.automobile.number}</option>
+            <option value =${journey.id}>${journey.id}: ${journey.date} ${journey.originDestination}
+            [${journey.distance}] ${journey.automobile.make} ${journey.automobile.number}</option>
             </c:forEach>
-            <option selected value=${managedJourney.id}>${managedJourney.id} ${managedJourney.originDestination}
-                                   ${managedJourney.automobile.make} ${managedJourney.automobile.number}</option>
         </select>
     </form:form>
     <input type="submit" name="Submit">
@@ -26,7 +24,7 @@
 <form action="/submitManageJourney" method="post">
     <form:form method="get" modelAttribute="managedJourney">
 
-        <label path="journeyId:">automobile id:</label>
+        <label path="journeyId:">journey id:</label>
         <input type="text" name="journey" readonly  value=${managedJourney.id} ></input><p/>
 
         <label path="automobile">select automobile:</label>
@@ -37,8 +35,10 @@
             <option selected value=${managedJourney.automobile.id}>${managedJourney.automobile}</option>
         </select></p>
 
-        <label path="date">journey date:</label>
-        <input type="date" required name="date" value =${managedJourney.date}></input></p>
+        <label path="date">journey date yyyy-MM-dd:</label>
+        <input type="date" required name="date" value=${managedJourney.date}
+        pattern = "(19|20)\d\d-((0[1-9]|1[012])-(0[1-9]|[12]\d)|(0[13-9]|1[012])-30|(0[13578]|1[02])-31)">
+        </p>
 
         <label path="originDestination">origin-destination:</label>
         <input type="text" required name="originDestination" value=${managedJourney.originDestination}></input></p>

@@ -20,7 +20,6 @@
             <c:forEach items="${automobiles}" var="auto">
             <option value =${auto.id}>${auto}</option>
             </c:forEach>
-            <option selected value=${managedAutomobile.id}>${managedAutomobile}</option>
         </select>
     </form:form>
     <input type="submit" name="Submit">

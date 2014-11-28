@@ -10,13 +10,13 @@
 <style type='text/css'>
 label {
     display: block;
-    text-align: center;
-    width: 200px;
+    text-align: left;
+    width: 400px;
 }
 input[type='text'] {
     display: block;
     text-align: left;
-    width: 200px;
+    width: 400px;
 }
 </style>
 
@@ -30,8 +30,10 @@ input[type='text'] {
     </select>
     </form:form></p>
 
-    <label path="date">journey date:</label>
-    <input type="date" required name="date"/></p>
+    <label path="date">journey date yyyy-MM-dd:</label>
+    <input type="date" required name="date"
+    pattern = "(19|20)\d\d-((0[1-9]|1[012])-(0[1-9]|[12]\d)|(0[13-9]|1[012])-30|(0[13578]|1[02])-31)">
+    </p>
 
     <label path="originDestination">origin-destination:</label>
     <input type="text" required name="originDestination"/></p>

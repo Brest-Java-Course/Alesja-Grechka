@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 /**
  * Created by alesya on 25.11.14.
  */
@@ -30,9 +30,15 @@ public class JourneyAutomobileController {
 
     public static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 
-    private List<AutomobileSummary> summaries;
+    private List<AutomobileSummary> summaries = new ArrayList();
+    private String summaryDateRangeMessage = new String();
     private Automobile managedAutomobile = new Automobile();
     private Journey managedJourney = new Journey();
+
+    private void clearSummary(){
+        summaries.clear();
+        summaryDateRangeMessage ="";
+    }
 
     @Autowired
     private AutomobileService automobileService;
@@ -62,6 +68,7 @@ public class JourneyAutomobileController {
         automobile.setFuelRate(fuelRate);
         Long id = automobileService.addAutomobile(automobile);
         LOGGER.debug("new automobile {}", id);
+        clearSummary();
         return "redirect:/dataList";
 
     }
@@ -71,7 +78,6 @@ public class JourneyAutomobileController {
                                       @RequestParam("automobile")String automobileStr,
                                       @RequestParam("originDestination")String originDestination,
                                       @RequestParam("distance")String distanceStr )throws Exception{
-
         Double distance = Double.parseDouble(distanceStr);
         Long automobileId = Long.parseLong(automobileStr);
         Date date = SDF.parse(dateStr);
@@ -84,6 +90,7 @@ public class JourneyAutomobileController {
         journey.setDistance(distance);
         Long id = journeyService.addJourney(journey);
         LOGGER.debug("new journey: {} ", id);
+        clearSummary();
         return "redirect:/dataList";
     }
 
@@ -110,6 +117,7 @@ public class JourneyAutomobileController {
     public ModelAndView launchSummary(){
         ModelAndView view =new ModelAndView();
         view.addObject("summaries", summaries);
+        view.addObject("summaryDateRangeMessage",summaryDateRangeMessage);
         return view;
     }
 
@@ -119,6 +127,7 @@ public class JourneyAutomobileController {
         Date date1 = SDF.parse(dateFrom);
         Date date2 = SDF.parse(dateTo);
         summaries = journeyService.getAutomobileSummaries(date1, date2);
+        summaryDateRangeMessage = " from "+dateFrom+" to "+dateTo;
         LOGGER.debug(" getSummaryBetweenDates: summary.size: {}", summaries.size());
         return  "redirect:/summary";
     }
@@ -126,6 +135,7 @@ public class JourneyAutomobileController {
     @RequestMapping("/AllSummaries")
     public String getSummary(){
         summaries = journeyService.getAutomobileSummaries();
+        summaryDateRangeMessage = " all summaries";
         LOGGER.debug(" getSummary: summary.size: {}", summaries.size());
         return  "redirect:/summary";
     }
@@ -173,13 +183,13 @@ public class JourneyAutomobileController {
             automobileService.removeAutomobile(automobileId);
             managedAutomobile =  new Automobile();
         }
+        clearSummary();
         return  "redirect:/managerAutomobile";
     }
 
     @RequestMapping("/managerJourney")
     public ModelAndView launchJourneyManager(){
         LOGGER.debug("launchJourneyManager");
-
         List<Automobile> automobiles = automobileService.getAllAutomobiles();
         List<Journey> journeys = journeyService.getAllJourneys();
         ModelAndView view = new ModelAndView();
@@ -206,26 +216,22 @@ public class JourneyAutomobileController {
                                 @RequestParam("distance")String distanceStr,
                                 @RequestParam("manage") String manage) throws Exception{
         LOGGER.debug("manageJourney");
-
         Long journeyId = Long.parseLong(journeyIdStr);
         Long automobileId = Long.parseLong(automobileIdStr);
         Date date = SDF.parse(dateStr);
         Double distance = Double.parseDouble(distanceStr);
-
         if(manage.equals("update")){
-
             Automobile automobile = new Automobile();
             automobile.setId(automobileId);
             Journey journey = new Journey(journeyId, automobile, date, originDestination, distance);
             journeyService.updateJourney(journey);
             managedJourney = journeyService.getJourneyById(journeyId);
         }
-
         if(manage.equals("delete")){
             journeyService.removeJourney(journeyId);
             managedJourney = new Journey();
         }
-
+        clearSummary();
         return  "redirect:/managerJourney";
     }
 }

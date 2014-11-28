@@ -22,10 +22,15 @@
 </style>
 
 <form action="/filterSummary" method="post">
-    <label path="date from:">date from:</label>
-    <input type="date" required name="dateFrom">
-    <label path="date to:">date to:</label>
-    <input type="date" required name="dateTo">
+
+    <label path="date_from:">journey date: [yyyy-MM-dd]</label>
+    <input type="date" required name="dateFrom"
+    pattern = "(19|20)\d\d-((0[1-9]|1[012])-(0[1-9]|[12]\d)|(0[13-9]|1[012])-30|(0[13578]|1[02])-31)">
+
+    <label path="date_to:">journey date: [yyyy-MM-dd]</label>
+    <input type="date" required name="dateTo"
+     pattern = "(19|20)\d\d-((0[1-9]|1[012])-(0[1-9]|[12]\d)|(0[13-9]|1[012])-30|(0[13578]|1[02])-31)">
+
     <input type="submit" name="filter">
 </form>
 
@@ -35,7 +40,7 @@
 </p>
 
 <form:form method="get" modelAttribute="summaries">
-<h1><spring:message code="summary.list" /></h1>
+<h1><spring:message code="summary.list" /> ${summaryDateRangeMessage} </h1>
 <ul>
     <table width=600px>
         <th>
