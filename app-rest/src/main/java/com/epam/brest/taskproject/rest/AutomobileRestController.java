@@ -67,7 +67,7 @@ public class AutomobileRestController {
     public ResponseEntity<Automobile>  getAutomobileByNumber(@PathVariable String number) {
         Automobile automobile = automobileService.getAutomobileByNumber(number);
         if( automobile == null ){
-            return new ResponseEntity("Automobile not found for number: " + number,HttpStatus.NOT_FOUND);
+            return new ResponseEntity("(rest)Automobile not found for number: " + number,HttpStatus.NOT_FOUND);
         } else
         return new ResponseEntity(automobile, HttpStatus.OK);
     }

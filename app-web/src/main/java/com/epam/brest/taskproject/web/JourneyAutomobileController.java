@@ -5,18 +5,16 @@ import com.epam.brest.taskproject.domain.Journey;
 import com.epam.brest.taskproject.domain.AutomobileSummary;
 import com.epam.brest.taskproject.service.AutomobileService;
 import com.epam.brest.taskproject.service.JourneyService;
-import com.epam.brest.taskproject.service.JourneyService;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -34,10 +32,26 @@ public class JourneyAutomobileController {
     private String summaryDateRangeMessage = new String();
     private Automobile managedAutomobile = new Automobile();
     private Journey managedJourney = new Journey();
-
     private void clearSummary(){
         summaries.clear();
         summaryDateRangeMessage ="";
+    }
+
+    private String relativeAddress;
+    {
+        try {
+            relativeAddress = new String(readRelativeAddressFromPropertyFile());
+        } catch (IOException e) {
+            LOGGER.error("init relativeAddress err:{}",e.getMessage());
+            relativeAddress = new String("");
+        }
+    }
+
+    private static String readRelativeAddressFromPropertyFile() throws IOException {
+        Properties properties = new Properties();
+        properties.load(JourneyAutomobileController.class.getClassLoader()
+                .getResourceAsStream("url.properties"));
+        return  properties.getProperty("relativeAddress");
     }
 
     @Autowired
@@ -53,8 +67,10 @@ public class JourneyAutomobileController {
 
     @RequestMapping("/inputFormAutomobile")
     public ModelAndView launchAutomobileInputForm() {
-        LOGGER.debug("launchInputForm()");
-        return new ModelAndView("inputFormAutomobile", "automobile", new Automobile());
+        LOGGER.debug("launchAutomobileInputForm() ");
+        ModelAndView view = new ModelAndView("inputFormAutomobile", "automobile", new Automobile());
+        view.addObject("relativeAddress", relativeAddress);
+        return view;
     }
 
     @RequestMapping("/submitAutomobileData")
@@ -100,6 +116,7 @@ public class JourneyAutomobileController {
         List<Automobile> automobiles = automobileService.getAllAutomobiles();
         ModelAndView view = new ModelAndView("inputFormJourney", "journey", new Journey());
         view.addObject("automobiles", automobiles);
+        view.addObject("relativeAddress", relativeAddress);
         return view;
     }
 
@@ -118,6 +135,7 @@ public class JourneyAutomobileController {
         ModelAndView view =new ModelAndView();
         view.addObject("summaries", summaries);
         view.addObject("summaryDateRangeMessage",summaryDateRangeMessage);
+        view.addObject("relativeAddress", relativeAddress);
         return view;
     }
 
@@ -147,6 +165,7 @@ public class JourneyAutomobileController {
         ModelAndView view = new ModelAndView();
         view.addObject("automobiles", automobiles);
         view.addObject("managedAutomobile", managedAutomobile);
+        view.addObject("relativeAddress", relativeAddress);
         return  view;
     }
 
@@ -196,6 +215,7 @@ public class JourneyAutomobileController {
         view.addObject("automobiles", automobiles);
         view.addObject("journeys", journeys);
         view.addObject("managedJourney", managedJourney);
+        view.addObject("relativeAddress", relativeAddress);
         return  view;
     }
 

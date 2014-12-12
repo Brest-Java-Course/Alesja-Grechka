@@ -21,7 +21,7 @@
     }
 </style>
 
-<form action="/filterSummary" method="post">
+<form action= ${relativeAddress}/filterSummary method="post">
 
     <label path="date_from:">journey date: [yyyy-MM-dd]</label>
     <input type="date" required name="dateFrom"
@@ -35,7 +35,7 @@
 </form>
 
 <p>
-    <form action="/AllSummaries" method="post">
+    <form action= ${relativeAddress}/AllSummaries method="post">
     <label path="show_all_summaries">show all summaries</label><input type="submit" name="Summit"></form>
 </p>
 

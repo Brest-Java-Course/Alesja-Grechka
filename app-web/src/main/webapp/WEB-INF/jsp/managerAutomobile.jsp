@@ -6,14 +6,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<form action="/submitFindAuto" method="post">
+<form action= ${relativeAddress}/submitFindAuto method="post">
     <label path="number:">number: (1111-aa[1-7])</label>
     <input type="text" name="number" pattern="[0-9]{4}-[a-z]{2}[1-7]{1}" value=${managedAutomobile.number}></input>
     <input type="submit" name="Submit">
 </form>
 </br>
 
-<form action="/submitSelectAuto" method="post">
+<form action= ${relativeAddress}/submitSelectAuto method="post">
     <label path="selectAuto">select automobile:</label>
     <form:form method="get" modelAttribute="automobiles">
         <select name="automobile">
@@ -27,7 +27,7 @@
 </br>
 </br>
 
-<form action="/submitManageAuto" method="post">
+<form action= ${relativeAddress}/submitManageAuto method="post">
     <form:form method="get" modelAttribute="managedAutomobile">
         <label path="automobileId:">automobile id:</label>
         <input type="text" name="automobileId" readonly  value=${managedAutomobile.id} ></input><p/>

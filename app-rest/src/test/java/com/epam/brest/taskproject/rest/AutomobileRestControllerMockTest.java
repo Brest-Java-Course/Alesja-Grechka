@@ -4,14 +4,14 @@ import com.epam.brest.taskproject.domain.Automobile;
 import com.epam.brest.taskproject.service.AutomobileService;
 import com.epam.brest.taskproject.rest.AutomobileRestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+//import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,8 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 import static org.easymock.EasyMock.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -32,6 +32,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 /**
  * Created by alesya on 23.11.14.
+ *
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
